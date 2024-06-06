@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Middleware\AdminAuthentication;
+use App\Http\Middleware\isAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,16 +26,12 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 // Admin Routes
 
-Route::middleware(['auth', \App\Http\Middleware\IsAdmin\IsAdmin::class])->group(function () {
-    Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/admin/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/admin/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/admin/orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
-    Route::put('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
-});
-
+Route::get('/admin/orders', [AdminController::class, 'index'])->name('admin.orders.index')->middleware([isAdmin::class]);;
+    Route::post('/admin/orders/{order}/status', [AdminController::class, 'updateStatus'])->name('admin.orders.updateStatus')->middleware([isAdmin::class]);;
+Route::get('/admin/users', [AdminController::class, 'getAllUser'])->name('admin.users')->middleware([isAdmin::class]);
 
 
 // User Routes
@@ -42,16 +39,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
-    Route::get('/admin/orders', [OrderController::class, 'orders'])->name('admin.orders');
-    Route::put('admin/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
+
 });
 
-Route::delete('/admin/orders/{id}/delete', [OrderController::class, 'delete'])->name('orders.delete');
-Route::put('/admin/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
 
 
 // Test
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
-    // Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
-    // Add more admin routes here
-});
+
