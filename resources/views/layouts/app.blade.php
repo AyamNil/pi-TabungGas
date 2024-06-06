@@ -35,14 +35,14 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
-                            @if (Auth::user()->is_admin)
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                        href="{{ route('admin.products.index') }}">{{ __('Manage Products') }}</a>
-                                </li>
+                            @if (Auth::user()->role === 'admin')
                                 <li class="nav-item">
                                     <a class="nav-link"
                                         href="{{ route('admin.orders.index') }}">{{ __('Manage Orders') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
+                                        href="{{ route('admin.users') }}">{{ __('Manage Users') }}</a>
                                 </li>
                             @else
                                 <li class="nav-item">
