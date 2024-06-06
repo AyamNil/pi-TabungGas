@@ -4,14 +4,15 @@
 
 @section('content')
 <div class="container">
-    <h1>Track Orders</h1>
+    <h1 class="mb-5">Track Orders</h1>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
+    <div class="container d-flex ">
     @foreach($orders as $order)
-        <div class="card mb-3">
+        <div class="card mx-3">
             <div class="card-body">
                 <h5 class="card-title">Order ID: {{ $order->id }}</h5>
                 <p class="card-text">Product ID: {{ $order->product_id }}</p>
@@ -22,5 +23,6 @@
             </div>
         </div>
     @endforeach
+    </div>
 </div>
 @endsection

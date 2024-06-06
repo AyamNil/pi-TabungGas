@@ -2,9 +2,10 @@
 
 @section('content')
 <div class="container">
-    <h1>Order Gas Tubes</h1>
-    @foreach($products as $product)
-        <div class="card">
+    <h1 class="mb-5">Order Gas Tubes</h1>
+   <div class="container d-flex">
+   @foreach($products as $product)
+        <div class="card mx-3">
             <div class="card-body">
                 <h5 class="card-title">{{ $product->name }}</h5>
                 <p class="card-text">Price: ${{ $product->price }}</p>
@@ -24,6 +25,7 @@
             </div>
         </div>
     @endforeach
+   </div>
     
 </div>
 @endsection

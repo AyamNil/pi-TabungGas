@@ -43,12 +43,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
     Route::get('/admin/orders', [OrderController::class, 'orders'])->name('admin.orders');
-    Route::put('admin/orders/{id}/update-status', 'OrderController@updateStatus')->name('admin.orders.updateStatus');
+    Route::put('admin/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 });
 
 
 // Test
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
-    Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+    // Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
     // Add more admin routes here
 });
