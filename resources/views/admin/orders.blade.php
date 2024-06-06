@@ -8,6 +8,8 @@
             <tr>
                 <th>Order ID</th>
                 <th>User Name</th>
+                <th>Address</th>
+                <th>Delivery Address</th>
                 <th>Quantity</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -18,10 +20,13 @@
                 <tr>
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->user->name }}</td>
+                    <td>{{ $order->user->address }}</td>
+                    <td>{{ $order->address }}</td>
                     <td>{{ $order->qty }}</td>
-                    <td>{{ $order->status }}</td>
+                    <td id="status_{{ $order->id }}">{{ $order->status }}</td>
                     <td>
                         <button class="btn btn-info" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')">Change Status</button>
+                        <button class="btn btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
                     </td>
                 </tr>
             @endforeach
@@ -72,6 +77,30 @@
             console.error(error);
             // Handle error
         });
+    }
+
+    function deleteOrder(orderId) {
+        if (confirm('Are you sure you want to delete this order?')) {
+            fetch(`/admin/orders/${orderId}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Assuming you're using CSRF protection
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Reload the page
+                    location.reload();
+                } else {
+                    throw new Error('Failed to delete order');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                // Handle error
+            });
+        }
     }
 </script>
 @endsection

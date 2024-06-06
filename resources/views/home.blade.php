@@ -13,23 +13,23 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <a href="orders">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Pemesanan Tabung Gas</h5>
-                                <p class="card-text">Lakukan Pemesanan Gas Disini.</p>
-                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <a href="orders" style="text-decoration: none; ">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ asset('storage/Assets/LPG.jpeg') }}" class="card-img-top" alt="...">
+                            <div class="card-body " style="color:brown;">
+                                <h5 class="card-title fw-bolder">Pemesanan</h5>
+                                <p class="card-text">Pemesanan Tabung Gas.</p>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-6">
-                    <a href="orders/track">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Tracking Order</h5>
-                                <p class="card-text">Lacak Pemesanan mu lewat tabung ini.</p>
-                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <a href="orders/track" style="text-decoration: none;">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ asset('storage/Assets/DELIVERY.png') }}" class="card-img-top" alt="...">
+                            <div class="card-body " style="color:brown;">
+                                <h5 class="card-title fw-bolder">Pemesanan</h5>
+                                <p class="card-text">Pemesanan Tabung Gas.</p>
                             </div>
                         </div>
                     </a>

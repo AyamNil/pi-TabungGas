@@ -49,10 +49,10 @@
                                     <a class="nav-link" href="/home">{{ __('Dashboard') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('orders.index') }}">{{ __('My Orders') }}</a>
+                                    <a class="nav-link" href="{{ route('orders.index') }}">{{ __('Order') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('orders.track') }}">{{ __('Track Orders') }}</a>
+                                    <a class="nav-link" href="{{ route('orders.track') }}">{{ __('My Orders') }}</a>
                                 </li>
                             @endif
                         @endauth

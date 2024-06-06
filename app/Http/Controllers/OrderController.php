@@ -13,6 +13,12 @@ class OrderController extends Controller
     // {
     //     $this->middleware('is.admin')->except(['index', 'store', 'track']);
     // }
+    public function delete($id)
+    {
+        $order = Post::findOrFail($id);
+        $order->delete();
+        return redirect()->back()->with('success', 'Order deleted successfully!');
+    }
 
     public function index()
     {
@@ -59,7 +65,7 @@ class OrderController extends Controller
     public function updateStatus(Request $request, Post $order)
     {
         $request->validate([
-            'status' => 'required|in:pending,processed,completed,delivered', // Add 'delivered' option
+            'status' => 'required|in:pending,processed,completed,delivered',
         ]);
 
         $order->update([
@@ -67,6 +73,5 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Order status updated successfully!');
-        echo ("Clicked");
     }
 }

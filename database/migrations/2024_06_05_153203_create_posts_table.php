@@ -22,6 +22,8 @@ class CreatePostsTable extends Migration
             $table->string('status');
             $table->string('address');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

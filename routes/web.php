@@ -46,6 +46,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('admin/orders/{id}/update-status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 });
 
+Route::delete('/admin/orders/{id}/delete', [OrderController::class, 'delete'])->name('orders.delete');
+Route::put('/admin/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+
 
 // Test
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
