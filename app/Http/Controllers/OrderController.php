@@ -74,4 +74,10 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Order status updated successfully!');
     }
+
+    public function destroy(Post $order)
+    {
+        $order->delete();
+        return redirect()->back()->with('success', 'Order deleted successfully!');
+    }
 }

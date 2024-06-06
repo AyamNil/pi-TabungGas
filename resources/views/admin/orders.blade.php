@@ -27,6 +27,7 @@
                     <td>
                         <button class="btn btn-info" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')">Change Status</button>
                         <button class="btn btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
+                        <button class="btn btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
                     </td>
                 </tr>
             @endforeach
@@ -81,7 +82,7 @@
 
     function deleteOrder(orderId) {
         if (confirm('Are you sure you want to delete this order?')) {
-            fetch(`/admin/orders/${orderId}/delete`, {
+            fetch(`/admin/orders/${orderId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,8 +91,7 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // Reload the page
-                    location.reload();
+                    location.reload(); // Reload the page
                 } else {
                     throw new Error('Failed to delete order');
                 }
