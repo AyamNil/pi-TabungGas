@@ -1,21 +1,33 @@
-<!-- resources/views/admin/dashboard.blade.php -->
-
-@extends('layouts.app') {{-- Assuming you have a layout file --}}
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Admin Dashboard</div>
-
-                    <div class="card-body">
-                        <p>Welcome, {{ Auth::user()->name }}!</p>
-                        <p>This is your admin dashboard.</p>
-                        <p>Customize this dashboard according to your needs.</p>
-                    </div>
+<div class="container">
+    <h1>Product Management</h1>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createProductModal">Add Product</button>
+    <div class="row">
+        @foreach($products as $product)
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $product->name }}</h5>
+                    <p class="card-text">Price: Rp.{{ $product->price }}</p>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal_{{ $product->id }}">Edit</button>
+                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
+</div>
+
+@include('admin.products.create_modal')
+
+@foreach($products as $product)
+@include('admin.products.edit_modal', ['product' => $product])
+@endforeach
+
 @endsection

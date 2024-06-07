@@ -42,6 +42,10 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link"
+                                        href="{{ route('admin.products.index') }}">{{ __('Manage Products') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"
                                         href="{{ route('admin.users') }}">{{ __('Manage Users') }}</a>
                                 </li>
                             @else

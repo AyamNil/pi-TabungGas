@@ -56,17 +56,19 @@ class OrderController extends Controller
         return view('order.track', compact('orders'));
     }
 
-    public function updateStatus(Request $request, Post $order)
-    {
-        $request->validate([
-            'status' => 'required|in:pending,processed,completed,delivered', // Add 'delivered' option
+    public function updateStatus(Post $order){
+        $user = auth()->user();
+        $order = Post::find($order->id);
+        $data = request()->validate([
+            'status' => 'required|string'
         ]);
-
-        $order->update([
-            'status' => $request->status,
-        ]);
-
+        $order->update($data);
         return redirect()->back()->with('success', 'Order status updated successfully!');
-        echo ("Clicked");
+    }
+
+    public function destroy(Post $order)
+    {
+        $order->delete();
+        return redirect()->back()->with('success', 'Order deleted successfully!');
     }
 }

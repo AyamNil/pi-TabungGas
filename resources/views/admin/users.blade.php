@@ -2,16 +2,22 @@
 
 @section('content')
 <body>
-    <h1>User List</h1>
-
     @if (session('error'))
         <div>{{ session('error') }}</div>
     @endif
 
-    <table>
+
+<div class="container">
+    <h1>User List</h1>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
+            <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
@@ -21,9 +27,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach($users as $user)
                 <tr>
-                    <td>{{ $user->id }}</td>
+                <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->address }}</td>
@@ -34,5 +40,5 @@
             @endforeach
         </tbody>
     </table>
-</body>
+</div>
 @endsection

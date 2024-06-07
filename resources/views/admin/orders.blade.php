@@ -15,15 +15,19 @@
         </thead>
         <tbody>
             @foreach($orders as $order)
-                <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->user->name }}</td>
-                    <td>{{ $order->qty }}</td>
-                    <td>{{ $order->status }}</td>
-                    <td>
-                        <button class="btn btn-info" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')">Change Status</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>{{ $order->id }}</td>
+                <td>{{ $order->user->name }}</td>
+                <td>{{ $order->qty }}</td>
+                <td>{{ $order->status }}</td>
+                <td>
+                    <button class="btn fw-bold btn-warning" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')" 
+                        @if($order->status === 'completed') disabled @endif>
+                        Change Status
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
@@ -32,46 +36,67 @@
 <script>
     function changeStatus(orderId, currentStatus) {
         let newStatus = '';
+        console.log(orderId);
+        console.log(currentStatus);
         // Determine the new status based on the current status
-        switch (currentStatus) {
-            case 'pending':
-                newStatus = 'processed';
-                break;
-            case 'processed':
-                newStatus = 'completed';
-                break;
-            case 'completed':
-                newStatus = 'delivered';
-                break;
-            default:
-                return; // Do nothing if the current status is not recognized
+        if (currentStatus === 'pending') {
+            newStatus = 'processing';
+        } else if (currentStatus === 'processing') {
+            newStatus = 'completed';
+        } else if (currentStatus === 'completed') {
+            console.error('Invalid status');
+            return;
+        } else {
+            console.error('Invalid status');
+            return;
         }
+        console.log(newStatus);
 
         // Make an AJAX request to update the order status
-        fetch(`/admin/orders/${orderId}/update-status`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Assuming you're using CSRF protection
-            },
-            body: JSON.stringify({
-                status: newStatus,
+        fetch(`/admin/orders/${orderId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Assuming you're using CSRF protection
+                },
+                body: JSON.stringify({
+                    status: newStatus,
+                }),
             })
-        })
-        .then(response => {
-            if (response.ok) {
-                // Reload the page or update the status column without reloading
-                location.reload(); // Reload the page
-                // Optionally, update the status column without reloading the page
-                // document.getElementById(`status_${orderId}`).innerText = newStatus;
-            } else {
-                throw new Error('Failed to update status');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            // Handle error
-        });
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // Reload the page
+                } else {
+                    throw new Error('Failed to change order status');
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                // Handle error
+            });
+    }
+
+    function deleteOrder(orderId) {
+        if (confirm('Are you sure you want to delete this order?')) {
+            fetch(`/admin/orders/${orderId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Assuming you're using CSRF protection
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload(); // Reload the page
+                    } else {
+                        throw new Error('Failed to delete order');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    // Handle error
+                });
+        }
     }
 </script>
 @endsection
