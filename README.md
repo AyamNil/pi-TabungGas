@@ -67,11 +67,13 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 ## How To Use?
-composer install
-npm install
-npm run dev
-change env.example to env
-php artisan generate:key
-php artisan migrate
-php artisan db:seed UserSeeder --class
-change whatsapp number on resource/views/orders/track
+- ** Composer Install
+- ** npm install
+- ** npm run dev
+- ** change env.example to env
+- ** php artisan generate:key
+- ** php artisan migrate
+- ** php artisan db:seed UserSeeder --class
+- ** php artisan serve
+- ** php artisan storage:link
+- ** change whatsapp number on resource/views/orders/track
