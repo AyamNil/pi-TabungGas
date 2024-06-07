@@ -8,7 +8,8 @@
 
 
 <div class="container">
-    <h1>User List</h1>
+    <div class="card p-3">
+    <h1 class="fw-bold">User List</h1>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -40,5 +41,6 @@
             @endforeach
         </tbody>
     </table>
+    </div>
 </div>
 @endsection

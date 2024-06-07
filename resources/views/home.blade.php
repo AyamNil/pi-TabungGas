@@ -8,7 +8,7 @@
         <div class="col-md-8">
             <div class="container pb-5">
                 @if(Auth::check())
-                <h2>Welcome, <b>{{ Auth::user()->name }}</b></h2>
+                <h2>Welcome, <b style="color: #025fa4;">{{ Auth::user()->name }}</b></h2>
                 @else
                 <h2>Welcome, Guest!</h2>
                 @endif
@@ -64,7 +64,7 @@
         <div class="col-md-8">
             <div class="container pb-5">
                 @if(Auth::check())
-                <h2>Welcome, <b>{{ Auth::user()->name }}</b></h2>
+                <h2>Welcome, <b style="color: #025fa4;">{{ Auth::user()->name }}</b></h2>
                 @else
                 <h2>Welcome, Guest!</h2>
                 @endif
@@ -85,7 +85,7 @@
                     <a href="orders/track" style="text-decoration: none;">
                         <div class="card" style="width: 100%;">
                             <img src="{{ asset('storage/Assets/DELIVERY.png') }}" class="card-img-top card-img-uniform" alt="Track Pemesanan">
-                            <div class="card-body" style="color: brown;">
+                            <div class="card-body">
                                 <h5 class="card-title fw-bolder">Track Pemesanan</h5>
                                 <p class="card-text">Lacak Pesanan Tabung Gas Anda.</p>
                             </div>

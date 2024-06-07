@@ -1,8 +1,53 @@
-// Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+$theme-colors:(
+    "primary" : #025fa4,
+    "nav"     : #025fa4,
+    "info"    : #f5e1c7,
+    "warning" : #a7bf01,
+    "success" : #f5e1c7,
+    "danger"  : #ec000e,
+);
+
+$navbar-light-color: #025fa4;
+$navbar-light-hover-color: #ec000e;
+$navbar-light-active-color: #ec000e;
+$navbar-font-weight: bold;
+
+
+// Input
+$input-bg:  #ffeacd;
+$input-border-color: #DAB49D;
+$input-focus-bg: #ffeacd;;
+
+// Card
+$card-border-width: 0;
+$card-bg: #f5e1c7;
+$card-box-shadow:  #000;
+$card-title-color:#000000;
+$card-text-color: #000000;
+
+// table
+$table-bg: #f5e1c7;
+$table-border-color: #DAB49D;
+
+// container
+$container-bg: #949494;
+
+
+//link
+$link-primary : #025fa4;
+
+//button
+$btn-font-weight: bold;
+
 
 // Variables
-@import 'variables';
+@import '_variables';
+
+//Thumbnail
+$thumbnail-border-width: 0;
+
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';

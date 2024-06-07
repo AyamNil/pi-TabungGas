@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h1>Manage Orders</h1>
+    <div class="card p-3">
+    <h1 class="fw-bold">Manage Orders</h1>
     <table class="table">
         <thead>
             <tr>
@@ -25,12 +26,13 @@
                         @if($order->status === 'completed') disabled @endif>
                         Change Status
                     </button>
-                    <button class="btn btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
+                    <button class="btn fw-bold btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    </div>
 </div>
 
 <script>

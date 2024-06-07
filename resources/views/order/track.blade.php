@@ -8,7 +8,7 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="list-group">
+    <div class="card p-3 border-radius-25">
         @foreach($orders as $order)
             <div class="list-group-item mb-3">
                 <h5 class="mb-1">Order ID: {{ $order->id }}</h5>
