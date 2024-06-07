@@ -3,7 +3,11 @@
 @extends('layouts.app') {{-- Assuming you have a layout file --}}
 
 @section('content')
-    <div class="container">
+    <div class="container" style="background: rgba(255, 255, 255, 0.13);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(7.5px);
+-webkit-backdrop-filter: blur(7.5px);"">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">

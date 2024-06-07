@@ -17,12 +17,19 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
+        body {
+            background-color: #ffffff;
+            opacity: 1;
+            background: repeating-linear-gradient(45deg, #e8eeff, #e8eeff 8.5px, #ffffff 8.5px, #ffffff 42.5px);
+        }
+
+
         .navbar-nav .nav-item .nav-link {
             color: #333;
             transition: color 0.3s ease;
         }
 
-        
+
 
         .navbar-nav .nav-item .nav-link:hover {
             background-color: #f0f0f0;
@@ -121,9 +128,11 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 

@@ -3,11 +3,14 @@
 $theme-colors:(
     "primary" : #025fa4,
     "nav"     : #025fa4,
-    "info"    : #f5e1c7,
+    "info"    : #2A8AA2,
     "warning" : #a7bf01,
     "success" : #f5e1c7,
     "danger"  : #ec000e,
 );
+
+
+
 
 $navbar-light-color: #025fa4;
 $navbar-light-hover-color: #ec000e;
@@ -16,20 +19,20 @@ $navbar-font-weight: bold;
 
 
 // Input
-$input-bg:  #ffeacd;
-$input-border-color: #DAB49D;
-$input-focus-bg: #ffeacd;;
+$input-bg:  #dff9ff;
+$input-border-color: #dcf8ff;
+$input-focus-bg: #d7f7ff;;
 
 // Card
 $card-border-width: 0;
-$card-bg: #f5e1c7;
+$card-bg: #bbddff;
 $card-box-shadow:  #000;
 $card-title-color:#000000;
 $card-text-color: #000000;
 
 // table
-$table-bg: #f5e1c7;
-$table-border-color: #DAB49D;
+$table-bg: #F6F4F3;
+$table-border-color: #2E294E;
 
 // container
 $container-bg: #949494;
@@ -47,6 +50,9 @@ $btn-font-weight: bold;
 
 //Thumbnail
 $thumbnail-border-width: 0;
+
+// background
+
 
 
 // Bootstrap
