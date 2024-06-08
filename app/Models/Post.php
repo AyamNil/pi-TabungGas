@@ -30,6 +30,7 @@ class Post extends Model
         'product_id',
         'qty',
         'total_price',
+        'delivery_vehicle',
         'status',
         'address',
     ];

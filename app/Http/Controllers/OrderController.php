@@ -32,6 +32,7 @@ class OrderController extends Controller
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'qty' => 'required|integer|min:1',
+            'delivery_vehicle' => 'required|string|max:255',
             'address' => 'required|string|max:255',
         ]);
 
@@ -43,6 +44,7 @@ class OrderController extends Controller
             'product_id' => $request->product_id,
             'qty' => $request->qty,
             'total_price' => $total_price,
+            'delivery_vehicle' => $request->delivery_vehicle,
             'status' => 'pending',
             'address' => $request->address,
         ]);

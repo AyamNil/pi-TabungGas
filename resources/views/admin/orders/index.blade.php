@@ -14,6 +14,7 @@
                 <th>Order ID</th>
                 <th>User Name</th>
                 <th>Quantity</th>
+                <th>Kendaraan Pengiriman</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -24,6 +25,7 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->user->name }}</td>
                     <td>{{ $order->qty }}</td>
+                    <td>{{ $order->delivery_vehicle }}</td>
                     <td>{{ $order->status }}</td>
                     <td>
                         <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Edit</a>

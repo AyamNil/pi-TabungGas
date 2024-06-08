@@ -18,12 +18,13 @@ backdrop-filter: blur(7.5px);
                 <h5 class="mb-1">Order ID: {{ $order->id }}</h5>
                 <p class="mb-1"><strong>Product ID:</strong> {{ $order->product_id }}</p>
                 <p class="mb-1"><strong>Quantity:</strong> {{ $order->qty }}</p>
+                <p class="mb-1"><strong>Kendaraan Pengiriman:</strong> {{ $order->delivery_vehicle }}</p>
                 <p class="mb-1"><strong>Total Price:</strong> Rp. {{ number_format($order->total_price, 0, ',', '.') }}</p>
                 <p class="mb-1">
-                    <strong>Status:</strong> 
+                    <strong>Status:</strong>
                     <span class="
                         @if($order->status === 'pending') text-danger fw-bold
-                        @elseif($order->status === 'processing') text-warning fw-bold 
+                        @elseif($order->status === 'processing') text-warning fw-bold
                         @elseif($order->status === 'completed') text-success fw-bold
                         @endif
                     ">
@@ -73,7 +74,7 @@ backdrop-filter: blur(7.5px);
             var modalBody = orderModal.querySelector('.modal-body #orderDetails');
 
             modalTitle.textContent = 'Order ID: ' + orderId;
-            
+
 
             var orderActionButton = document.getElementById('orderActionButton');
             orderActionButton.onclick = function () {

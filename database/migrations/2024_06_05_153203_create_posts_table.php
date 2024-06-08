@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->integer('qty');
             $table->integer('total_price');
+            $table->string('delivery_vehicle');
             $table->string('status');
             $table->string('address');
             $table->timestamps();

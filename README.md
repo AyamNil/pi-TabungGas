@@ -74,6 +74,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - php artisan generate:key
 - php artisan migrate
 - php artisan db:seed UserSeeder --class
+- php artisan db:seed ProductSeeder --class
 - php artisan serve
 - php artisan storage:link
-- change whatsapp number on resource/views/orders/track
+- change whatsapp number on resource/views/orders/track (for payment authentication)

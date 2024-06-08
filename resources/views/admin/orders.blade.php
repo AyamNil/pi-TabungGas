@@ -14,6 +14,7 @@ backdrop-filter: blur(7.5px);
                 <th>Order ID</th>
                 <th>User Name</th>
                 <th>Quantity</th>
+                <th>Kendaraan Pengiriman</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -24,9 +25,10 @@ backdrop-filter: blur(7.5px);
                 <td>{{ $order->id }}</td>
                 <td>{{ $order->user->name }}</td>
                 <td>{{ $order->qty }}</td>
+                <td>{{ $order->delivery_vehicle }}</td>
                 <td>{{ $order->status }}</td>
                 <td>
-                    <button class="btn fw-bold btn-warning" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')" 
+                    <button class="btn fw-bold btn-warning" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')"
                         @if($order->status === 'completed') disabled @endif>
                         Change Status
                     </button>

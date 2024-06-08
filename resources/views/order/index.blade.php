@@ -5,7 +5,7 @@
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(7.5px);
--webkit-backdrop-filter: blur(7.5px);"">
+-webkit-backdrop-filter: blur(7.5px);">
     <h1>Order Gas Tubes</h1>
     <div class="row">
         @foreach($products as $product)
@@ -24,6 +24,13 @@ backdrop-filter: blur(7.5px);
                         <div class="form-group">
                             <label for="address">Address</label>
                             <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_vehicle">Delivery Vehicle</label>
+                            <select class="form-control" id="delivery_vehicle" name="delivery_vehicle" required>
+                                <option value="Mobil">Mobil</option>
+                                <option value="Sepeda Motor">Sepeda Motor</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Order</button>
                     </form>
