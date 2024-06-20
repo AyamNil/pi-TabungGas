@@ -48,9 +48,3 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
 
 });
-
-
-
-
-// Test
-
