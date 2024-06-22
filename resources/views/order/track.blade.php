@@ -79,7 +79,7 @@ backdrop-filter: blur(7.5px);
             var orderActionButton = document.getElementById('orderActionButton');
             orderActionButton.onclick = function () {
                 var whatsappMessage = `Order ID: ${orderId} - Konfirmasi pembayaran untuk pesanan ini.`;
-                var whatsappURL = `https://wa.me/whatsAppNumber?text=${encodeURIComponent(whatsappMessage)}`;
+                var whatsappURL = `https://wa.me/6285719043233?text=${encodeURIComponent(whatsappMessage)}`;
                 window.open(whatsappURL, '_blank');
             };
         });
