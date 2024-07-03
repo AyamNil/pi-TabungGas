@@ -12,9 +12,7 @@ backdrop-filter: blur(7.5px);
         @foreach($products as $product)
         <div class="col-md-4 mb-3">
             <div class="card">
-                <img src="/storage/{{ $product->image }}" class="img-fluid">
                 <div class="card-body">
-                    <h5 class="card-title">{{ $product->image }}</h5>
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <p class="card-text">Price: Rp.{{ $product->price }}</p>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal_{{ $product->id }}">Edit</button>

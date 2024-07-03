@@ -17,10 +17,6 @@
                         <label for="editProductPrice" class="form-label">Price</label>
                         <input type="number" class="form-control" id="editProductPrice" name="price" value="{{ $product->price }}">
                     </div>
-                    <div class="mb-3">
-                        <label for="productImage" class="form-label">Product Image</label>
-                        <input type="file" class="form-control" id="productImage" name="image">
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
