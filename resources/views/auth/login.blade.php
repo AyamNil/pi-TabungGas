@@ -8,6 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    <img src="{{ asset('storage/Assets/logo.png') }}" width="250" class="rounded mx-auto d-block w-1 m-3 ">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

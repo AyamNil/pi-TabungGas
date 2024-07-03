@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -23,11 +24,21 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imagePath = request('image')->store('post', 'public');
+        $image = Image::make(public_path("/storage/{$imagePath}"))->fit(600, 600);
+        $image->save();
+
+        // $image = Image::make(public_path("storage/{$imagePath}"))->fit(600, 600);
+        // $image->save();
+
 
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
@@ -43,8 +54,25 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        // Check if a new image is uploaded
+        if ($request->hasFile('image')) {
+            // Delete the old image if it exists
+            // if ($product->image) {
+            //     Storage::disk('public')->delete($product->image);
+            // }
+            // Store and process the new image
+            $imagePath = $request->file('image')->store('Assets', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(600, 600);
+            $image->save();
+
+            // Update the product with the new image path
+            $product->image = $imagePath;
+        }
+
+        // Update the product with other fields
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
@@ -52,6 +80,7 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully!');
     }
+
 
     public function destroy(Product $product)
     {
