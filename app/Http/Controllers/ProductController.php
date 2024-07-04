@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -23,11 +24,17 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        $imagePath = request('image')->store('post', 'public');
+        $image = Image::make(public_path("/storage/{$imagePath}"))->fit(600, 600);
+        $image->save();
 
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
+            'image' => $imagePath,
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
