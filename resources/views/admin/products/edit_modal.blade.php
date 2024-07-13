@@ -17,6 +17,10 @@
                         <label for="editProductPrice" class="form-label">Price</label>
                         <input type="number" class="form-control" id="editProductPrice" name="price" value="{{ $product->price }}">
                     </div>
+                    <div class="mb-3">
+                        <label for="editStock" class="form-label">Stock</label>
+                        <input type="number" class="form-control" id="editStock" name="stock" value="{{ $product->stock }}">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

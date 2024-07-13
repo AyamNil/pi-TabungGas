@@ -6,6 +6,9 @@ use App\Models\Post;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 class OrderController extends Controller
 {
@@ -33,6 +36,12 @@ class OrderController extends Controller
         ]);
 
         $product = Product::find($request->product_id);
+
+        // Check if there's enough stock
+        if ($product->stock < $request->qty) {
+            return redirect()->back()->with('error', 'Not enough stock available. Maximum available: ' . $product->stock);
+        }
+
         $total_price = $product->price * $request->qty;
 
         Post::create([
@@ -45,6 +54,9 @@ class OrderController extends Controller
             'address' => $request->address,
         ]);
 
+        // Reduce the stock
+        $product->decrement('stock', $request->qty);
+
         return redirect()->route('orders.track')->with('success', 'Order placed successfully!');
     }
 
@@ -54,7 +66,8 @@ class OrderController extends Controller
         return view('order.track', compact('orders'));
     }
 
-    public function updateStatus(Post $order){
+    public function updateStatus(Post $order)
+    {
         $user = auth()->user();
         $order = Post::find($order->id);
         $data = request()->validate([
@@ -63,6 +76,50 @@ class OrderController extends Controller
         $order->update($data);
         return redirect()->back()->with('success', 'Order status updated successfully!');
     }
+
+    public function uploadBuktiPembayaran(Request $request)
+    {
+        $request->validate([
+            'order_id' => 'required|exists:posts,id',
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $order = Post::findOrFail($request->order_id);
+
+        if ($request->hasFile('bukti_pembayaran')) {
+            // Delete old image if exists
+            if ($order->bukti_pembayaran) {
+                Storage::disk('public')->delete($order->bukti_pembayaran);
+            }
+
+            // Store the new image
+            $imagePath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+
+            // Resize and save the image
+            $image = Image::make(public_path("storage/{$imagePath}"));
+            $image->save();
+
+            // Update the order with the new image path
+            $order->update([
+                'bukti_pembayaran' => $imagePath,
+                'status' => 'processing' // Update status to processing after payment proof is uploaded
+            ]);
+
+            return redirect()->route('orders.track')->with('success', 'Bukti pembayaran berhasil diupload!');
+        }
+
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat mengupload bukti pembayaran.');
+    }
+
+    public function viewBukti(Post $order)
+{
+    if (!$order->bukti_pembayaran) {
+        abort(404);
+    }
+
+    $path = Storage::disk('public')->path($order->bukti_pembayaran);
+    return response()->file($path);
+}
 
     public function destroy(Post $order)
     {

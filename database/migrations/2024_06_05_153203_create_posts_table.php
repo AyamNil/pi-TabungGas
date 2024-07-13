@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->string('delivery_vehicle');
             $table->string('status');
             $table->string('address');
+            $table->string('bukti_pembayaran')->nullable()->default('default.jpg');
             $table->timestamps();
         });
     }

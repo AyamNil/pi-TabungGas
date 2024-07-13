@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('img', 100)->nullable();
+            $table->string('image', 100)->nullable()->defaukt('default.jpg');
             $table->integer('price');
+            $table->integer('stock')->default(0); // Add this line to set the default value of 'stock' to '0
             $table->timestamps();
         });
     }

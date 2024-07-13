@@ -9,12 +9,16 @@ class Post extends Model
 {
     use HasFactory;
 
-    public function index()
-    {
-        $orders = Post::all(); // Fetch orders from the database
-
-        return view('orders.index', compact('orders'));
-    }
+    protected $fillable = [
+        'user_id',
+        'product_id',
+        'qty',
+        'total_price',
+        'delivery_vehicle',
+        'status',
+        'address',
+        'bukti_pembayaran',
+    ];
 
     public function user()
     {
@@ -25,13 +29,4 @@ class Post extends Model
     {
         return $this->belongsTo(Product::class);
     }
-    protected $fillable = [
-        'user_id',
-        'product_id',
-        'qty',
-        'total_price',
-        'delivery_vehicle',
-        'status',
-        'address',
-    ];
 }

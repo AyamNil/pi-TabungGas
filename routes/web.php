@@ -38,13 +38,15 @@ Route::post('/admin/products', [ProductController::class, 'store'])->name('admin
 Route::get('/admin/products/{product}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
 Route::put('/admin/products/{product}', [ProductController::class, 'update'])->name('admin.products.update');
 Route::delete('/admin/products/{product}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
-
-
+Route::post('/upload-bukti-pembayaran', [OrderController::class, 'uploadBuktiPembayaran'])->name('upload.bukti.pembayaran');
+Route::get('/admin/orders/{order}/bukti', [OrderController::class, 'viewBukti'])->name('admin.orders.viewBukti');
 
 // User Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
+    Route::post('/orders/upload-bukti', [OrderController::class, 'uploadBuktiPembayaran'])->name('orders.upload.bukti');
+
 
 });

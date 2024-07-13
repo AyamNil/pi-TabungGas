@@ -16,6 +16,10 @@
                         <label for="productPrice" class="form-label">Price</label>
                         <input type="number" class="form-control" id="productPrice" name="price">
                     </div>
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">stock</label>
+                        <input type="number" class="form-control" id="stock" name="stock">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="productImage" class="form-label">Product Image</label>

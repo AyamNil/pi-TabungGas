@@ -5,39 +5,47 @@
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(7.5px);
--webkit-backdrop-filter: blur(7.5px);"">
+-webkit-backdrop-filter: blur(7.5px);">
     <div class="card p-3">
-    <h1 class="fw-bold">Manage Orders</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>User Name</th>
-                <th>Quantity</th>
-                <th>Kendaraan Pengiriman</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($orders as $order)
-            <tr>
-                <td>{{ $order->id }}</td>
-                <td>{{ $order->user->name }}</td>
-                <td>{{ $order->qty }}</td>
-                <td>{{ $order->delivery_vehicle }}</td>
-                <td>{{ $order->status }}</td>
-                <td>
-                    <button class="btn fw-bold btn-warning" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')"
-                        @if($order->status === 'completed') disabled @endif>
-                        Change Status
-                    </button>
-                    <button class="btn fw-bold btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+        <h1 class="fw-bold">Manage Orders</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User Name</th>
+                    <th>Quantity</th>
+                    <th>Kendaraan Pengiriman</th>
+                    <th>Status</th>
+                    <th>Bukti Pembayaran</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($orders as $order)
+                <tr>
+                    <td>{{ $order->id }}</td>
+                    <td>{{ $order->user->name }}</td>
+                    <td>{{ $order->qty }}</td>
+                    <td>{{ $order->delivery_vehicle }}</td>
+                    <td>{{ $order->status }}</td>
+                    <td>
+                        @if($order->bukti_pembayaran)
+                            <a href="{{ route('admin.orders.viewBukti', $order) }}" class="btn btn-sm btn-primary" target="_blank">View</a>
+                        @else
+                            No Image
+                        @endif
+                    </td>
+                    <td>
+                        <button class="btn fw-bold btn-warning" onclick="changeStatus('{{ $order->id }}', '{{ $order->status }}')"
+                            @if($order->status === 'completed') disabled @endif>
+                            Change Status
+                        </button>
+                        <button class="btn fw-bold btn-danger" onclick="deleteOrder('{{ $order->id }}')">Delete</button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 

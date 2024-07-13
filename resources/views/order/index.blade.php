@@ -7,6 +7,13 @@ box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(7.5px);
 -webkit-backdrop-filter: blur(7.5px);">
     <h1>Order Gas Tubes</h1>
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="row">
         @foreach($products as $product)
         <div class="col-md-4 mb-4">
@@ -15,12 +22,13 @@ backdrop-filter: blur(7.5px);
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <p class="card-text">Price: Rp.{{ $product->price }}</p>
-                    <form action="{{ route('orders.store') }}" method="POST">
+                    <p class="card-text">Stock: <span id="stock-{{ $product->id }}">{{ $product->stock }}</span></p>
+                    <form action="{{ route('orders.store') }}" method="POST" onsubmit="return validateStock({{ $product->id }})">
                         @csrf
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                         <div class="form-group">
-                            <label for="qty">Quantity</label>
-                            <input type="number" class="form-control" id="qty" name="qty" min="1" required>
+                            <label for="qty-{{ $product->id }}">Quantity</label>
+                            <input type="number" class="form-control" id="qty-{{ $product->id }}" name="qty" min="1" max="{{ $product->stock }}" required>
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
@@ -41,4 +49,19 @@ backdrop-filter: blur(7.5px);
         @endforeach
     </div>
 </div>
+
+<script>
+function validateStock(productId) {
+    var qtyInput = document.getElementById('qty-' + productId);
+    var stockSpan = document.getElementById('stock-' + productId);
+    var availableStock = parseInt(stockSpan.innerText);
+    var orderedQty = parseInt(qtyInput.value);
+
+    if (orderedQty > availableStock) {
+        alert('Not enough stock available. Maximum available: ' + availableStock);
+        return false;
+    }
+    return true;
+}
+</script>
 @endsection

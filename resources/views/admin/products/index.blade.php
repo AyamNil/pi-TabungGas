@@ -16,6 +16,7 @@ backdrop-filter: blur(7.5px);
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->name }}</h5>
                     <p class="card-text">Price: Rp.{{ $product->price }}</p>
+                    <p class="card-text">Stock: {{ $product->stock }}</p>
                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal_{{ $product->id }}">Edit</button>
                     <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display: inline;">
                         @csrf

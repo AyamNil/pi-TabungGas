@@ -5,11 +5,16 @@
 border-radius: 16px;
 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(7.5px);
--webkit-backdrop-filter: blur(7.5px);"">
+-webkit-backdrop-filter: blur(7.5px);">
     <h1>Track Orders</h1>
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
         </div>
     @endif
     <div class="card p-3 border-radius-25">
@@ -35,6 +40,9 @@ backdrop-filter: blur(7.5px);
                 @if($order->status === 'pending')
                     <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#orderModal" data-order-id="{{ $order->id }}">View Order</button>
                 @endif
+                @if($order->bukti_pembayaran)
+                    <p class="mb-1"><strong>Bukti Pembayaran:</strong> Uploaded</p>
+                @endif
             </div>
         @endforeach
     </div>
@@ -50,39 +58,36 @@ backdrop-filter: blur(7.5px);
             </div>
             <div class="modal-body">
                 <div id="orderDetails" class="text-center mb-3">
-                <img src="{{ asset('storage/Assets/qris.jpg') }}" class="card-img-top card-img-uniform" alt="Track Pemesanan">
+                    <img src="{{ asset('storage/Assets/qris.jpg') }}" class="card-img-top card-img-uniform" alt="Track Pemesanan">
                 </div>
                 <div class="text-center">
-                    <p>Lakukan Pembayaran VIA QRis Diatas</p>
-                    <p>Klik Tombol Konfirmasi</p>
-                    <p>Kirim Bukti pembayaran ke whatsapp yang nantinya terbuka</p>
-                    <!-- <p>Jangan Lupa Lampirkan Order Id Anda</p> -->
+                    <li><h4>SILAHKAN MELAKUKAN PEMBAYARAN KE :</h4></li>
+                    <li>GOPAY <b>085719043233</b> ATAS NAMA DESY RAHAYU</li>
+                    <li>BRI <b>3224 0104 2219 539</b> ATAS NAMA DESY RAHAYU</li>
+                    <li>OVO <b>085719043233</b> ATAS NAMA DESY RAHAYU</li>
                 </div>
-                <button class="btn btn-primary mt-3 w-100" id="orderActionButton">Konfirmasi Pembayaran</button>
+                <form id="paymentForm" action="{{ route('orders.upload.bukti') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="order_id" id="orderId">
+                    <div class="mb-3">
+                        <label for="bukti_pembayaran" class="form-label">Upload Bukti Pembayaran</label>
+                        <input type="file" class="form-control" id="buktiPembayaran" name="bukti_pembayaran" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3 w-100" id="orderActionButton">Konfirmasi Pembayaran</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var orderModal = document.getElementById('orderModal');
-        orderModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            var orderId = button.getAttribute('data-order-id');
-            var modalTitle = orderModal.querySelector('.modal-title');
-            var modalBody = orderModal.querySelector('.modal-body #orderDetails');
-
-            modalTitle.textContent = 'Order ID: ' + orderId;
-
-
-            var orderActionButton = document.getElementById('orderActionButton');
-            orderActionButton.onclick = function () {
-                var whatsappMessage = `Order ID: ${orderId} - Konfirmasi pembayaran untuk pesanan ini.`;
-                var whatsappURL = `https://wa.me/6285719043233?text=${encodeURIComponent(whatsappMessage)}`;
-                window.open(whatsappURL, '_blank');
-            };
-        });
-    });
+    // JavaScript to set the order ID when the modal is opened
+    var orderModal = document.getElementById('orderModal')
+    orderModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget
+        var orderId = button.getAttribute('data-order-id')
+        var orderIdInput = orderModal.querySelector('#orderId')
+        orderIdInput.value = orderId
+    })
 </script>
 @endsection
