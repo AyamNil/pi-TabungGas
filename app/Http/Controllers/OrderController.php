@@ -92,17 +92,14 @@ class OrderController extends Controller
                 Storage::disk('public')->delete($order->bukti_pembayaran);
             }
 
-            // Store the new image
             $imagePath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
 
-            // Resize and save the image
             $image = Image::make(public_path("storage/{$imagePath}"));
             $image->save();
 
-            // Update the order with the new image path
             $order->update([
                 'bukti_pembayaran' => $imagePath,
-                'status' => 'processing' // Update status to processing after payment proof is uploaded
+                'status' => 'processing'
             ]);
 
             return redirect()->route('orders.track')->with('success', 'Bukti pembayaran berhasil diupload!');
@@ -112,14 +109,14 @@ class OrderController extends Controller
     }
 
     public function viewBukti(Post $order)
-{
-    if (!$order->bukti_pembayaran) {
-        abort(404);
-    }
+    {
+        if (!$order->bukti_pembayaran) {
+            abort(404);
+        }
 
-    $path = Storage::disk('public')->path($order->bukti_pembayaran);
-    return response()->file($path);
-}
+        $path = Storage::disk('public')->path($order->bukti_pembayaran);
+        return response()->file($path);
+    }
 
     public function destroy(Post $order)
     {

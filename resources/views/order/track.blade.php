@@ -58,7 +58,7 @@ backdrop-filter: blur(7.5px);
             </div>
             <div class="modal-body">
                 <div id="orderDetails" class="text-center mb-3">
-                    <img src="{{ asset('storage/Assets/qris.jpg') }}" class="card-img-top card-img-uniform" alt="Track Pemesanan">
+                    <img src="{{ asset('storage/Assets/QR-Gopay.jpeg') }}" class="card-img-top card-img-uniform" alt="Track Pemesanan">
                 </div>
                 <div class="text-center">
                     <li><h4>SILAHKAN MELAKUKAN PEMBAYARAN KE :</h4></li>

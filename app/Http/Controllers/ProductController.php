@@ -24,7 +24,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|numeric|min:0', // Add this line to validate the 'stock' field
+            'stock' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -35,7 +35,7 @@ class ProductController extends Controller
         Product::create([
             'name' => $request->name,
             'price' => $request->price,
-            'stock' => $request->stock, // Add this line to set the default value of 'stock' to '0
+            'stock' => $request->stock,
             'image' => $imagePath,
         ]);
 
@@ -52,13 +52,13 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|numeric|min:0', // Add this line to validate the 'stock' field
+            'stock' => 'required|numeric|min:0',
         ]);
 
         $product->update([
             'name' => $request->name,
             'price' => $request->price,
-            'stock' => $request->stock, // Add this line to set the default value of 'stock' to '0
+            'stock' => $request->stock,
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully!');
